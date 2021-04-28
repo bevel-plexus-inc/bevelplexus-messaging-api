@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
-RUN apt-get update \
-    && export DEBIAN_FRONTEND=noninteractive \
+RUN  DEBIAN_FRONTEND=noninteractive apt-get update \
+
     && export APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 \
     && apt-get -yq install --no-install-recommends --assume-yes apt-utils python make g++ nginx curl dirmngr apt-transport-https lsb-release ca-certificates supervisor \
     && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
