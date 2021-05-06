@@ -1,16 +1,15 @@
 FROM ubuntu:20.04
 
-RUN  DEBIAN_FRONTEND=noninteractive apt-get update \
-
+RUN apt-get update \
+    && export DEBIAN_FRONTEND=noninteractive \
     && export APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 \
-    && apt-get -yq install --no-install-recommends --assume-yes apt-utils python3 make g++ nginx curl dirmngr apt-transport-https lsb-release ca-certificates supervisor \
+    && apt-get -yq install --no-install-recommends --assume-yes apt-utils python make g++ nginx curl dirmngr apt-transport-https lsb-release ca-certificates supervisor \
     && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
     && apt-get -yq install nodejs \
     && curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
     && apt-get update \
     && apt-get -yq install --no-install-recommends yarn
-
 RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
 
 WORKDIR /var/www/bp-messaging-be
